@@ -1,0 +1,78 @@
+#Creating a data frame and performing various operations
+name = c('a','b','c','d','e')
+age = c(23,22,21,25,20)
+maths_marks = c(87,86,89,88,79)
+science_marks = c(65,87,78,55,93)
+total_marks1 = maths_marks + science_marks
+student_df = data.frame(name, age, maths_marks, science_marks, total_marks1)       # df is a data frame
+View(student_df)
+
+# adding a column and leveraging existing columns to add a new column
+pct_maths_marks <- round(((maths_marks/total_marks1)*100),digits = 2)
+# or student_df$pct_maths_marks <- (student_df$maths_marks/student_df$total_marks1)*100
+pct_science_marks <- round(((science_marks/total_marks1)*100), digits = 2)
+student_df <- cbind(student_df, pct_maths_marks, pct_science_marks)
+View(student_df)
+
+#removing a column
+student1_df <- student_df[,-c(1)]
+View(student1_df)
+
+#renaming all columns
+names(student_df1)
+names(student1_df) <- c("a","m_m","s_m","t_m")
+View(student1_df)
+
+#renaming a random column
+names(student1_df)[1] <- "age"
+View(student1_df)
+
+#changing a particluar element
+student1_df[3,3] <- 98
+View(student1_df)
+
+#finding and changing the name of a column only if it has a particular name
+#
+#
+#
+#
+
+#Transforming existing columns
+student_df$age_log <- log(student_df$age)
+student_df$age_exp <- exp(student_df$age) #(exp(student_df$age)/mean(student_df$age))...why?
+student_df$age_inverse <- 1/student_df$age
+student_df$age_sqrt <- sqrt(student_df$age)
+student_df$age_square <- (student_df$age)^2
+View(student_df)
+
+#Changing the data type of column
+student_df$name <- as.character(student_df$name)
+class(student_df$name)
+nn <- c("xx","23", "24.5","78.4")
+nn.num <- as.numeric(nn)
+table(is.na(nn.num))
+class(nn)
+
+#Applying Conditions
+#a
+student2_df <- student_df[student_df$age >= 23,]
+View(student2_df)
+
+#b
+s1 <- student_df$age >= 23
+student3_df <- student_df[!s1,]
+View(student3_df)
+
+#c
+student4_df <- student_df [student_df$maths_marks > 50 & student_df$science_marks < 80 , c(1:5)]
+View(student4_df)
+
+#d - subset - check code: class 5
+
+#e - which loop
+
+#
+sample_index <- sample(1:nrow(student_df), 3, replace = F) #works randomly
+sample_index  
+student5_df <- student_df[sample_index,]
+View(student5_df)
